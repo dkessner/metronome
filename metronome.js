@@ -34,7 +34,7 @@ function setup()
 function get_time_value() 
 {
     let t = millis() / 1000.0 / 60; // time in minutes
-    let beats = t * bpm;            // number of beats
+    let beats = t * bpm * 4;            // number of beats
     return beats%8;                 // return value in [0,8)
 }
 
@@ -57,6 +57,10 @@ function draw()
         fill(128);
         stroke(128);
         ellipse(x, width/2, 10, 10);
+        if (i%2 == 0)
+        {
+            line(x, 0, x, height);
+        }
     }
 
     // cursor
@@ -68,12 +72,16 @@ function draw()
     if (level_max < level)
         level_max = level;
 
-    let y = height/2 + map(level, 0, .5, 0, -width*.25);
+    if (level < .1) level = .1;
+    let y = height/4 + map(level, .1, .2, 0, -width*.25);
 
     fill(255);
     text(level, width/2, height*.75);
 
     fill(255);
     ellipse(x, y, 50, 50);
+
+    stroke(255);
+    line(x, 0, x, height);
 
 }
